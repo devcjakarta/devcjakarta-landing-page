@@ -12,7 +12,10 @@ class LabelRegister extends Component {
   }
 
   render() {
-    let {title, subTitle, location, dateStart, description, ...rest} = this.props
+    function createMarkup( text) {
+      return {__html: text};
+    }
+    let {title, subTitle, location, dateStart, timeStart, timeFinish, description, imageUrl, ...rest} = this.props
     return (
       <Grid.Column mobile={16} tablet={16} computer={8}>
         <div className="label-register">
@@ -22,11 +25,14 @@ class LabelRegister extends Component {
           <Header as="h2">
             {subTitle}
           </Header>
-          <div className="event-location">
-            {location}, {dateStart}
-          </div>
           <div className="event-description">
-          {description}
+            <span dangerouslySetInnerHTML={createMarkup(description)} />     
+          </div>
+          <div className="event-location">
+            <span dangerouslySetInnerHTML={createMarkup(location)} /> 
+          </div>
+          <div className="event-date">
+            {dateStart} {timeStart} {timeFinish} 
           </div>
         </div>
       </Grid.Column>

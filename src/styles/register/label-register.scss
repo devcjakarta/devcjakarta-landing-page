@@ -1,7 +1,5 @@
 .label-register {
   h1 {
-    margin: 0px !important;
-    padding: 0px !important;
     color: #FFF !important;
     font-size: 50px !important;
 
@@ -10,8 +8,6 @@
     }
   }
   h2 {
-    margin: 0px !important;
-    padding: 0px !important;
     color: #EEE !important;
     font-size: 30px !important;
   }
@@ -20,13 +16,5 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-  .event-location {
-    margin-top: 10px;
-  }
-  .event-description {
-    margin-top: 10px;
-    font-size: 15px;
-    color: #ffffff;
   }
 }

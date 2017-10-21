@@ -12,21 +12,23 @@ import {displayMessage} from '../../utils/register/methods'
 
 class FormRegister extends PureComponent {
   initialState = {
-    event: '',
     name: '',
     email: '',
     phone: '',
     title: '',
-    url: '',
-    file: '',
+    description: '',
+    institution: '',
+    occupation: '',
+    url: 'http://www.kioss.com',
     tech: 'Facebook Stack'
   }
   state = {
     data: {
       ...this.initialState
     },
-    useFacebook: false,
+    useFacebook: true,
     loading: false,
+    canRegister: false,
     response: {},
     errors: {}
   }
@@ -76,6 +78,7 @@ class FormRegister extends PureComponent {
 
   registerFacebookSuccess = ({_profile}) => {
     let {name, email} = _profile
+    document.getElementById("btnRegister").disabled = false;
     this.setState({
       data: {
         ...this.state.data,
@@ -88,6 +91,7 @@ class FormRegister extends PureComponent {
         email: ''
       },
       useFacebook: true,
+      canRegister: true,
       loading: false
     })
   }
@@ -100,16 +104,13 @@ class FormRegister extends PureComponent {
   }
 
   render() {
-    const { data, errors, useFacebook, loading, response } = this.state
+    const { data, errors, useFacebook, loading, response, canRegister } = this.state
     return (
       <Grid.Column mobile={16} tablet={16} computer={8} style={styles}>
         <Card fluid>
           <Card.Content>
+            <h2>Registration</h2>
             <Form loading={loading}>
-              {
-                displayMessage(response)
-              }
-
               <Form.Field required error={!!errors.name}>
                 <label htmlFor="name">Nama Lengkap</label>
                 <Input type="text"
@@ -120,7 +121,6 @@ class FormRegister extends PureComponent {
                   placeholder="Masukan nama lengkap" />
                 { errors.name && <InlineError text={errors.name} />}
               </Form.Field>
-
               <Form.Field required error={!!errors.email}>
                 <label htmlFor="email">E-mail</label>
                 <Input type="email"
@@ -137,24 +137,48 @@ class FormRegister extends PureComponent {
                   name="phone"
                   onChange={this.handleInputChange}
                   value={data.phone}
+                  disabled={!canRegister}
                   placeholder="Masukan nomor telepon" />
                 { errors.phone && <InlineError text={errors.phone} />}
               </Form.Field>
+              <Form.Field required error={!!errors.phone}>
+                <label htmlFor="institution">Institusi/Lembaga/Kantor</label>
+                <Input type="text"
+                  name="institution"
+                  onChange={this.handleInputChange}
+                  value={data.institution}
+                  disabled={!canRegister}
+                  placeholder="Institusi/Lembaga/Kantor" />
+                { errors.institution && <InlineError text={errors.institution} />}
+              </Form.Field>
+              <Form.Field required error={!!errors.occupation}>
+                <label htmlFor="occupation">Job Title/Major/Grade</label>
+                <Input type="text"
+                  name="occupation"
+                  onChange={this.handleInputChange}
+                  value={data.occupation}
+                  disabled={!canRegister}
+                  placeholder="Job Title/Major/Grade" />
+                { errors.occupation && <InlineError text={errors.occupation} />}
+              </Form.Field>
 
+              {
+                displayMessage(response)
+              }
               <Form.Field>
                 {
-                  !this.state.useFacebook && (
+                  this.state.useFacebook && (
                     <ButtonSocial
                       provider="facebook"
-                      appId="1436210843160846"
+                      appId="124764001615637"
                       onClick={this.socialLogin}
                       onLoginSuccess={this.registerFacebookSuccess}
                       onLoginFailure={this.registerFacebookFailure}>
-                        Connect to Facebook
+                        Connect with Facebook
                     </ButtonSocial>
                   )
                 }
-                <Button positive onClick={this.onSubmit}>Register</Button>
+                <Button id="btnRegister" disabled={!canRegister} positive onClick={this.onSubmit}>Register</Button>
               </Form.Field>
             </Form>
           </Card.Content>
