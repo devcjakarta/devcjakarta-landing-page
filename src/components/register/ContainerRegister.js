@@ -54,10 +54,11 @@ class ContainerRegister extends Component {
   }
 
   render() {
+    let { show, ...rest } = this.state
     return (
     <Container>
       <Grid>
-        <LabelRegister {...this.state} />
+        <LabelRegister {...rest} />
         { this.renderRegistrationForm() }
       </Grid>
     </Container>
