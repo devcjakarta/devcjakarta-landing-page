@@ -48,31 +48,16 @@ class ContainerRegister extends Component {
   }
 
   renderRegistrationForm(){
-    if (this.state.show){
-      return (
-        <FormRegister eventId={this.state.id} submit={submitRegisterData} />
-      )
-    }else{
-    }
+    return (this.state.show) && (
+      <FormRegister eventId={this.state.id} submit={submitRegisterData} />
+    )
   }
 
   render() {
     return (
     <Container>
       <Grid>
-        <LabelRegister
-          id={this.state.id}
-          title={this.state.title}
-          subTitle={this.state.subTitle}
-          location={this.state.location}
-          url={this.state.url}
-          imageUrl={this.state.imageUrl}
-          dateStart={this.state.dateStart}
-          timeStart={this.state.timeStart}
-          dateFinish={this.state.dateFinish}
-          timeFinish={this.state.timeFinish}
-          description={this.state.description}
-        />
+        <LabelRegister {...this.state} />
         { this.renderRegistrationForm() }
       </Grid>
     </Container>
