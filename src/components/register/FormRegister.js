@@ -141,7 +141,7 @@ class FormRegister extends PureComponent {
                   placeholder="Masukan nomor telepon" />
                 { errors.phone && <InlineError text={errors.phone} />}
               </Form.Field>
-              <Form.Field required error={!!errors.phone}>
+              <Form.Field required error={!!errors.institution}>
                 <label htmlFor="institution">Institusi/Lembaga/Kantor</label>
                 <Input type="text"
                   name="institution"

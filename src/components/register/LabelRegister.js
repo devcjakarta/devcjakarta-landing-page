@@ -1,21 +1,16 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Grid, Header } from 'semantic-ui-react'
 
 import '../../styles/register/label-register.css'
 
-class LabelRegister extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-    }
-  }
+class LabelRegister extends PureComponent {
+  createMarkup = text => ({
+    __html: text
+  })
 
   render() {
-    function createMarkup( text) {
-      return {__html: text};
-    }
-    let {title, subTitle, location, dateStart, timeStart, timeFinish, description, imageUrl, ...rest} = this.props
+    let {title, subTitle, location, dateStart, timeStart, timeFinish, description } = this.props
     return (
       <Grid.Column mobile={16} tablet={16} computer={8}>
         <div className="label-register">
@@ -26,14 +21,18 @@ class LabelRegister extends Component {
             {subTitle}
           </Header>
           <div className="event-description">
-            <span dangerouslySetInnerHTML={createMarkup(description)} />     
+            <span dangerouslySetInnerHTML={this.createMarkup(description)} />     
           </div>
           <div className="event-location">
-            <span dangerouslySetInnerHTML={createMarkup(location)} /> 
+            <span dangerouslySetInnerHTML={this.createMarkup(location)} /> 
           </div>
-          <div className="event-date">
-            {dateStart} {timeStart} {timeFinish} 
-          </div>
+          {
+            (dateStart && timeStart && timeFinish) && (
+              <div className="event-date">
+                {`${dateStart} ${timeStart} ${timeFinish}`} 
+              </div>
+            )
+          }
         </div>
       </Grid.Column>
     )
