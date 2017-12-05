@@ -111,6 +111,20 @@ class FormRegister extends PureComponent {
           <Card.Content>
             <h2>Registration</h2>
             <Form loading={loading}>
+              <Form.Field>
+                {
+                  this.state.useFacebook && (
+                    <ButtonSocial
+                      provider="facebook"
+                      appId="124764001615637"
+                      onClick={this.socialLogin}
+                      onLoginSuccess={this.registerFacebookSuccess}
+                      onLoginFailure={this.registerFacebookFailure}>
+                        Connect with Facebook
+                    </ButtonSocial>
+                  )
+                }
+              </Form.Field>
               <Form.Field required error={!!errors.name}>
                 <label htmlFor="name">Nama Lengkap</label>
                 <Input type="text"
@@ -166,18 +180,6 @@ class FormRegister extends PureComponent {
                 displayMessage(response)
               }
               <Form.Field>
-                {
-                  this.state.useFacebook && (
-                    <ButtonSocial
-                      provider="facebook"
-                      appId="124764001615637"
-                      onClick={this.socialLogin}
-                      onLoginSuccess={this.registerFacebookSuccess}
-                      onLoginFailure={this.registerFacebookFailure}>
-                        Connect with Facebook
-                    </ButtonSocial>
-                  )
-                }
                 <Button id="btnRegister" disabled={!canRegister} positive onClick={this.onSubmit}>Register</Button>
               </Form.Field>
             </Form>
