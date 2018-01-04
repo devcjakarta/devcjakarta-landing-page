@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Grid, Card, Form, Input, Button } from 'semantic-ui-react'
+import Recaptcha from 'react-grecaptcha'
 
 import '../../styles/register/form-register.css'
 
@@ -105,6 +106,7 @@ class FormRegister extends PureComponent {
 
   render() {
     const { data, errors, useFacebook, loading, response, canRegister } = this.state
+    let verifyCallback = response => console.log(response)
     return (
       <Grid.Column mobile={16} tablet={16} computer={8} style={styles}>
         <Card fluid>
@@ -175,7 +177,9 @@ class FormRegister extends PureComponent {
                   placeholder="Job Title/Major/Grade" />
                 { errors.occupation && <InlineError text={errors.occupation} />}
               </Form.Field>
-
+              <Recaptcha sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                callback={verifyCallback}
+                locale="id-ID" />
               {
                 displayMessage(response)
               }
